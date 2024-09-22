@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lan="en">
+
+<head>
+    <link href="checkboxTree.css" rel="stylesheet">
+    <style>
+        h1 {
+            font-size: 1.4em;
+        }
+
+        h2 {
+            font-size: 1.2em;
+        }
+
+        p {
+            margin: 0px 0px .4em 0px;
+            font: 14pt 'Times New Roman', Times, serif;
+            line-height: 20pt;
+
+        }
+
+        pre {
+            font-size: 14pt;
+        }
+
+        section {
+            max-width: 1000px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>swCheckboxTree() - Enter "c" into the console to view the object</h1>
+    <section id="demo"></section>
+    <section>
+        <p>Here's a checkbox tree component for vanilla HTML/JS with no dependencies. This allows a user to select from
+            a list of nested items. It's a fairly simple concept but creating one manually is challenging to get right.
+        </p>
+        <pre>
+    Call the function to get an instance:
+
+    const c = swCheckboxTree();
+        </pre>
+    </section>
+    <section>
+
+
+        <p>This function encapsulates the necessary logic, and returns an object containing a DOM element (a div) and
+            some
+            methods to update it and retrieve its values.</p>
+
+        <p>This was interesting to make because it's one of the rare occasions where I needed to use recursion, since
+            the list is infinitely nestable. </p>
+
+        <p>The inner function recursiveBuild() iterates through the array of options, and if there is a child array on
+            an option, recursiveBuild() calls itself, and iterates through the child array, etc.</p>
+
+        <p>I kept the CSS for this project as minimal as I could so it would be easy to override. There are no CSS
+            classes used except .sw-checkbox-tree. I used the relatively new (2023) :has() selector to apply a couple
+            styles. The hover effect on a label does not take effect if the checkbox inside it is disabled.</p>
+
+        <p>I applied the indeterminate state to checkboxes whose children were partially checked. I noticed that indeterminate always overrides the checked state -- if a checkbox is both indeterminate and checked, it will appear indeterminate, regardless of the order the two are set.</p>
+
+        <p>Some future improvements could involve adding keyboard navigation and the appropriate aria attributes. But at
+            least because these are normal input elements the tab key should work correctly.</p>
+
+        <p>I used TypeScript for this project. This is a rewrite of an earlier version I made for work.</p>
+
+
+
+
+    </section>
+    <script src="checkboxTree.js"></script>
+    <script>
+        const c = swCheckboxTree();
+        document.querySelector('#demo').append(c.element);
+        c.options = [
+            {
+                label: 'Fruits',
+                value: 'fruits',
+                children: [
+                    {
+                        label: 'Citrus',
+                        value: 'citrus',
+                        checked: true,
+                        children: [
+                            { label: 'Orange', value: 'orange' },
+                            { label: 'Lemon', value: 'lemon' }
+                        ]
+                    },
+                    {
+                        label: 'Berries',
+                        value: 'berries',
+                        children: [
+                            { label: 'Strawberry', value: 'strawberry', checked: true },
+                            { label: 'Blueberry', value: 'blueberry', disabled: true }
+                        ]
+                    }
+                ]
+            },
+            {
+                label: 'Vegetables',
+                value: 'vegetables',
+                children: [
+                    {
+                        label: 'Leafy Greens',
+                        value: 'leafy-greens',
+                        children: [
+                            { label: 'Lettuce', value: 'lettuce' },
+                            { label: 'Spinach', value: 'spinach', checked: true }
+                        ]
+                    },
+                    {
+                        label: 'Root Vegetables',
+                        value: 'root-vegetables',
+                        children: [
+                            { label: 'Carrot', value: 'carrot', id: 'root-carrot' },
+                            { label: 'Beetroot', value: 'beetroot', disabled: true }
+                        ]
+                    }
+                ]
+            },
+            {
+                label: 'Dairy',
+                value: 'dairy',
+                children: [
+                    {
+                        label: 'Milk',
+                        value: 'milk',
+                        children: [
+                            { label: 'Cow Milk', value: 'cow-milk' },
+                            { label: 'Goat Milk', value: 'goat-milk', checked: true }
+                        ]
+                    },
+                    {
+                        label: 'Cheese',
+                        value: 'cheese',
+                        children: [
+                            { label: 'Cheddar', value: 'cheddar' },
+                            { label: 'Mozzarella', value: 'mozzarella', disabled: true }
+                        ]
+                    }
+                ]
+            }
+        ];
+        console.log('%cEnter "c" to view the swCheckboxTree object', 'font-size: 18px; color: blue;');
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+.sw-checkbox-tree:not(.sw-checkbox-tree > .sw-checkbox-tree) {
+    width: fit-content;
+    border-left: 1px solid transparent;
+}
+
+.sw-checkbox-tree>.sw-checkbox-tree {
+    padding-left: 2rem;
+    border-left: 1px solid #ccc;
+}
+
+.sw-checkbox-tree label {
+    user-select: none;
+    display: grid;
+    grid-template-columns: min-content 1fr;
+    grid-column-start: 2;
+}
+
+.sw-checkbox-tree div:not(.sw-checkbox-tree) {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+}
+
+.sw-checkbox-tree button {
+    all: unset;
+    cursor: pointer;
+    height: fit-content;
+    width: fit-content;
+    place-self: center;
+    grid-column-start: 1;
+}
+
+.sw-checkbox-tree input {
+    transform: scale(1.2);
+    margin: 3px 8px;
+}
+
+.sw-checkbox-tree input:not(:disabled),
+.sw-checkbox-tree label:not(:has(input:disabled)) {
+    cursor: pointer;
+}
+
+.sw-checkbox-tree label {
+    padding: .2rem;
+    border-radius: .2rem;
+}
+
+
+.sw-checkbox-tree label:not(:has(input:disabled)):hover {
+    background-color: #eee;
+}
